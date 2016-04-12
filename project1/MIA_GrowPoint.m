@@ -1,4 +1,4 @@
-function R_Mask = MIA_GrowPoint(inImage, pt, R_Mask, lowerBound, upperBound)
+function [R_Mask, B_Mask] = MIA_GrowPoint(inImage, pt, R_Mask, B_Mask, lowerBound, upperBound)
 
 pt_x = pt(1);
 pt_y = pt(2);
@@ -24,8 +24,10 @@ for i = 1:3
                 % Do not recall function on self
                 % TODO: find better way to avoid this conditional
                 if (i ~= 2 || j~= 2)
-                    R_Mask = MIA_GrowPoint(inImage, [newPt_x, newPt_y], R_Mask, lowerBound, upperBound);
+                    [R_Mask, B_Mask] = MIA_GrowPoint(inImage, [newPt_x, newPt_y], R_Mask, B_Mask, lowerBound, upperBound);
                 end
+            else
+                B_Mask(newPt_x, newPt_y) = true;
             end
         end
     end
