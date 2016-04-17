@@ -12,7 +12,7 @@
 %             Column 4 is radius of calc
 % names:  an 1xI cell array of string names correspoding to the filename
 %         of each image
-% images: 1xI cell array of I images
+% images: 1xIx cell array of I images
 
 function [calc_specs, images, names] = MIA_ReadTraining(infoPath, imageDir)
     FID = fopen(infoPath);
@@ -33,7 +33,16 @@ function [calc_specs, images, names] = MIA_ReadTraining(infoPath, imageDir)
             imageNum = imageNum + 1;
             oldPath = newPath;
             names{imageNum} = C{1}{i};
-            images{imageNum} = imread(newPath);
+            temp = imread(newPath);
+            for j = 1:512
+                if mean(temp(:,j)) - mean(temp(:,1025-j)) > 20
+                    images{imageNum} = temp;
+                    break;
+                else if mean(temp(:,j)) - mean(temp(:,1025-j)) < -20
+                    images{imageNum} = fliplr(temp);
+                    break;
+                end
+            end
         end
         calc_specs(i,:) = [imageNum X(i) Y(i) R(i)];
     end
