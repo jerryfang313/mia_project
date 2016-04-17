@@ -38,7 +38,7 @@ function [calc_specs, images, names] = MIA_ReadTraining(infoPath, imageDir)
                 if mean(temp(:,j)) - mean(temp(:,1025-j)) > 20
                     images{imageNum} = temp;
                     break;
-                else if mean(temp(:,j)) - mean(temp(:,1025-j)) < -20
+                elseif mean(temp(:,j)) - mean(temp(:,1025-j)) < -20
                     images{imageNum} = fliplr(temp);
                     break;
                 end
