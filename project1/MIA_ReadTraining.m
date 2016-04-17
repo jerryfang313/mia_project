@@ -10,9 +10,9 @@
 %             Column 2 is x coordinate of calc
 %             Column 3 is y coordinate of calc
 %             Column 4 is radius of calc
-% names:  an Ix1 cell array of string names correspoding to the filename
+% names:  an 1xI cell array of string names correspoding to the filename
 %         of each image
-% images: Ix1 cell array of I images
+% images: 1xI cell array of I images
 
 function [calc_specs, images, names] = MIA_ReadTraining(infoPath, imageDir)
     FID = fopen(infoPath);
