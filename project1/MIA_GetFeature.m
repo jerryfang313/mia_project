@@ -14,8 +14,8 @@ function [outVector] = MIA_GetFeature(inImage, R_Mask, B_Mask)
     background = inImage(B_Mask == 1);
     min_col = floor(find(R_Mask, 1)/size(inImage,1)) + 1;
     max_col = floor(find(R_Mask, 1, 'last')/size(inImage,1)) + 1;
-    min_row = floor(find(R_mask', 1)/size(inImage,2)) + 1;
-    max_row = floor(find(R_mask', 1, 'last')/size(inImage,2)) + 1;    
+    min_row = floor(find(R_Mask', 1)/size(inImage,2)) + 1;
+    max_row = floor(find(R_Mask', 1, 'last')/size(inImage,2)) + 1;    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
