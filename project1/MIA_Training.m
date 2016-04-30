@@ -1,7 +1,17 @@
+% get path to truth file
+waitfor(msgbox(['Please select ', 'calc_info.txt', ':']));
+pause(0.25);
+[FILE, PATH] = uigetfile('*', 'calc_info.txt');
+calc_info_fullpath = [PATH FILE];
+disp(['Opened ' 'calc_info.txt'])
 
+% get path to calcification image directory
+waitfor(msgbox(['Please select ', 'calcification image directory', ':']));
+pause(0.25);
+calc_image_dir = uigetdir('*', 'calcification image directory');
+disp(['Opened ' 'calcification image directory'])
 
-
-[calc_specs, images, names] = MIA_ReadTraining('truth/calc_info.txt', 'calcification/');
+[calc_specs, images, names] = MIA_ReadTraining(calc_info_fullpath, [calc_image_dir '\']);
 
 numFeatures = 14;
 featVectors = zeros(numFeatures, size(calc_specs,1));
