@@ -13,6 +13,20 @@ disp(['Opened ' 'calcification image directory'])
 
 [calc_specs, images, names] = MIA_ReadTraining(calc_info_fullpath, [calc_image_dir '\']);
 
+figure;
+subplot(4, 3, 1);
+for i = 1:11
+    subplot(4,3,i);
+    colormap('gray');
+    imagesc(images{i});
+    axis equal;
+end
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 numFeatures = 14;
 featVectors = zeros(numFeatures, size(calc_specs,1));
 
