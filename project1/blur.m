@@ -4,5 +4,5 @@
 function [outImage] = blur(inImage)
 
   mask = [1/8 1/8 1/8;1/8 0 1/8; 1/8 1/8 1/8];
-  outImage = conv2(inImage,mask,same);
-  
+  outImage = conv2(inImage,mask,'same');
+end

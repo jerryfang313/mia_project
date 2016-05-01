@@ -17,7 +17,7 @@
 function [calc_specs, images, names] = MIA_ReadTraining(infoPath, imageDir)
     FID = fopen(infoPath);
     C = textscan(FID, 'Filename x y radius');
-    C = textscan(FID, '%s %d %d %d');
+    C = textscan(FID, '%s %d %d %d', 13);
     X = C{2};
     Y = C{3};
     R = C{4};
