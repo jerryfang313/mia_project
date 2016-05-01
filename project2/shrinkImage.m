@@ -16,7 +16,7 @@ for i = 1:size(shrunk,1)
             beginLay = (k-1) * shrinkFactor + 1;
             endRow = i * shrinkFactor;
             endCol = j * shrinkFactor;
-            endLay = k * srhinkFactor;
+            endLay = k * shrinkFactor;
             shrunk(i,j,k) = mean(mean(mean(inputImage(beginRow:endRow, beginCol:endCol, beginLay:endLay))));
         end
     end
