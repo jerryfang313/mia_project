@@ -1,0 +1,16 @@
+Filename x y radius 
+mdb213 477 505 87 
+mdb223 502 543 29 
+mdb223 434 496 6 
+mdb231 421 487 44 
+mdb238 522 472 17 
+mdb239 379 270 40 
+mdb239 457 217 25 
+mdb240 643 411 23 
+mdb241 571 347 38 
+mdb248 378 424 10 
+mdb252 439 658 23 
+mdb253 291 461 28 
+mdb256 400 541 37 
+
+The origin is at the left up corner. 

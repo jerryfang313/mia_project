@@ -25,6 +25,9 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+
 numFeatures = 14;
 featVectors = zeros(numFeatures, size(calc_specs,1));
 
