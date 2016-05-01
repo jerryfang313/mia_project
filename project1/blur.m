@@ -3,6 +3,6 @@
 % enhancement with histogram equalization
 function [outImage] = blur(inImage)
 
-  mask = [1/8 1/8 1/8;1/8 0 1/8; 1/8 1/8 1/8];
+  mask = repmat(1/9, 3, 3);
   outImage = conv2(inImage,mask,'same');
 end

@@ -95,6 +95,7 @@ for i = 1:size(calc_specs, 1)
     imagesc(cI(seed_row-50:seed_row+50, seed_col-50:seed_col+50));
     axis equal;
 end
-featVectors
 normCoeffs = max(featVectors,[],2);
 normFeatVectors = featVectors./repmat(normCoeffs,1,size(calc_specs,1));
+
+save('training_results.mat', 'normCoeffs', 'normFeatVectors', 'calc_specs', 'images', 'histEqImages', 'blurredImages');
