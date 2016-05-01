@@ -33,41 +33,53 @@ axis equal;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+histEqImages = cell(size(images));
+for i = 1:11
+    histEqImages{i} = myHistEq(images{i}, 0.05);
+end
+
+figure;
+colormap('gray');
+imagesc(histEqImages{rnum});
+axis equal;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % figure;
 % subplot(4, 3, 1);
 blurredImages = cell(size(images));
 for i = 1:11
 %     subplot(4,3,i);
 %     colormap('gray');
-    blurredImages{i} = blur(images{i});
+    blurredImages{i} = blur(histEqImages{i});
     % colormap('gray');
     %imagesc(blurredImages{i});
     %axis equal;
 end
+
 
 figure;
 colormap('gray');
 imagesc(blurredImages{rnum});
 axis equal;
 
-figure;
-colormap('gray');
-imagesc(double(images{rnum}) - blurredImages{rnum});
-axis equal;
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 numFeatures = 14;
 featVectors = NaN(numFeatures, size(calc_specs,1));
 
+circledImages = cell(max(size(calc_specs)), 1);
+figure;
+subplot(4,4,1);
 for i = 1:size(calc_specs, 1)
-    im = images{calc_specs(i,1)};
+    circledImages{i} = imread([PATH names{calc_specs(i,1)} '_g.pgm']);
+    cI = circledImages{i};
+        
+    im = blurredImages{calc_specs(i,1)};
     seed_row = calc_specs(i,3) + 1;
     seed_col = calc_specs(i,2) + 1;
     seed = [seed_row, seed_col];
-    threshold = 1;
+    threshold = 2;
     constrain = 0;
     param = '';
     thickness = 1;
@@ -75,10 +87,14 @@ for i = 1:size(calc_specs, 1)
     [R_Mask, B_Mask] = MIA_Grow(im, seed, threshold, constrain, param, thickness);
 
     featVectors(:,i) = MIA_GetFeature(im, R_Mask, B_Mask);
+    
+    subplot(4,4,i);
+    colormap('gray');
+    cI(logical(R_Mask)) = 255;
+    cI(logical(B_Mask)) = 0;
+    imagesc(cI(seed_row-50:seed_row+50, seed_col-50:seed_col+50));
+    axis equal;
 end
 featVectors
 normCoeffs = max(featVectors,[],2);
 normFeatVectors = featVectors./repmat(normCoeffs,1,size(calc_specs,1));
-
-
-
