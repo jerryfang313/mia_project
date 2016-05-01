@@ -69,6 +69,7 @@ numFeatures = 14;
 featVectors = NaN(numFeatures, size(calc_specs,1));
 
 circledImages = cell(max(size(calc_specs)), 1);
+all
 figure;
 subplot(4,4,1);
 for i = 1:size(calc_specs, 1)

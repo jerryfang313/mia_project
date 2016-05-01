@@ -69,6 +69,8 @@ numFeatures = 14;
 featVectors = NaN(numFeatures, size(calc_specs,1));
 
 circledImages = cell(max(size(calc_specs)), 1);
+allRMasks = cell(size(circledImages));
+allBMasks = cell(size(circledImages));
 figure;
 subplot(4,4,1);
 for i = 1:size(calc_specs, 1)
@@ -85,6 +87,8 @@ for i = 1:size(calc_specs, 1)
     thickness = 1;
   
     [R_Mask, B_Mask] = MIA_Grow(im, seed, threshold, constrain, param, thickness);
+    allRMasks{i} = R_Mask;
+    allBMasks{i} = B_Mask;
 
     featVectors(:,i) = MIA_GetFeature(im, R_Mask, B_Mask);
     
@@ -98,4 +102,4 @@ end
 normCoeffs = max(featVectors,[],2);
 normFeatVectors = featVectors./repmat(normCoeffs,1,size(calc_specs,1));
 
-save('training_results.mat', 'normCoeffs', 'normFeatVectors', 'calc_specs', 'images', 'histEqImages', 'blurredImages');
+save('training_results.mat', 'normCoeffs', 'normFeatVectors', 'calc_specs', 'images', 'histEqImages', 'blurredImages', 'allRMasks', 'allBMasks');
