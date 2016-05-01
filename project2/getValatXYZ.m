@@ -1,4 +1,4 @@
-function [ vals ] = getValatXYZ( XYZ )
+function [ vals ] = getValatXYZ(RCLofOrigin, XYZ )
 
 
 end
