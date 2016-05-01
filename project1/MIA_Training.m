@@ -92,7 +92,7 @@ for i = 1:size(calc_specs, 1)
     colormap('gray');
     cI(logical(R_Mask)) = 255;
     cI(logical(B_Mask)) = 0;
-    imagesc(cI(seed_row-50:seed_row+50, seed_col-50:seed_col+50));
+    imagesc(cI(seed_row-50:seed_row+50, seed_col-50:seed_col+50)); 
     axis equal;
 end
 normCoeffs = max(featVectors,[],2);

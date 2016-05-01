@@ -1,4 +1,4 @@
-function [ vals ] = getValatXYZ(RCLofOrigin, XYZ )
+function [ vals ] = getValatXYZ(RCLofOrigin, XYZ , image)
 
 
 end
