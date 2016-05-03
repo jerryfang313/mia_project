@@ -27,26 +27,40 @@ shrinkFactor = 4;
 lostRows = zeros(numBrains,1);
 lostCols = zeros(numBrains,1);
 lostLays = zeros(numBrains,1);
+leftMaxRCL = zeros(numBrains, 3);
+leftMinRCL = zeros(numBrains, 3);
+rightMaxRCL = zeros(numBrains, 3);
+rightMinRCL = zeros(numBrains, 3);
 for i = 1:numBrains
     leftBox = ReadXml(leftBoxNames{i});
+    numRows = size(leftBox, 1);
+    numCols = size(leftBox, 2);
     leftMinCorner = find(leftBox, 1, 'first');
     leftMaxCorner = find(leftBox, 1, 'last');
-    leftMinR;
-    leftMinC;
-    leftMinL;
-    leftMaxR;
-    leftMaxC;
-    leftMaxL;
+    leftMinR = mod(mod(leftMinCorner, numRows * numCols), numRows);
+    leftMinC = ceil(mod(leftMinCorner, numRows * numCols)/numRows);
+    leftMinL = ceil(leftMinCorner/numRows/numCols);
+    leftMaxR = mod(mod(leftMaxCorner, numRows * numCols), numRows);
+    leftMaxC = ceil(mod(leftMaxCorner, numRows * numCols)/numRows);
+    leftMaxL = ceil(leftMaxCorner/numRows/numCols);
+    
+    leftMinRCL(i,:) = [leftMinR, leftMinC, leftMinL];
+    leftMaxRCL(i,:) = [leftMaxR, leftMaxC, leftMaxL];
     
     rightBox = ReadXml(rightBoxNames{i});
+    numRows = size(rightBox, 1);
+    numCols = size(rightBox, 2);
     rightMinCorner = find(rightBox, 1, 'first');
     rightMaxCorner = find(rightBox, 1, 'last');
-    rightMinR;
-    rightMinC;
-    rightMinL;
-    rightMaxR;
-    rightMaxC;
-    rightMaxL;
+    rightMinR = mod(mod(rightMinCorner, numRows * numCols), numRows);
+    rightMinC = ceil(mod(rightMinCorner, numRows * numCols)/numRows);
+    rightMinL = ceil(rightMinCorner/numRows/numCols);
+    rightMaxR = mod(mod(rightMaxCorner, numRows * numCols), numRows);
+    rightMaxC = ceil(mod(rightMaxCorner, numRows * numCols)/numRows);
+    rightMaxL = ceil(rightMaxCorner/numRows/numCols);
+    
+    rightMinRCL(i,:) = [rightMinR, rightMinC, rightMinL];
+    rightMaxRCL(i,:) = [rightMaxR, rightMaxC, rightMaxL];
     
     brain = ReadXml(brainNames{i});
     brain(brain < 0) = 0;
@@ -74,3 +88,5 @@ save('brain3mat.mat', 'brain3');
 save('brain4mat.mat', 'brain4');
 save('brain5mat.mat', 'brain5');
 save('brain6mat.mat', 'brain6');
+
+save('atlas.mat', 'shrunkBrains', 'lostRows', 'lostCols', 'lostLays', 'shrinkFactor', 'numBrains', 'leftMinRCL', 'leftMaxRCL', 'rightMinRCL', 'rightMaxRCL');
