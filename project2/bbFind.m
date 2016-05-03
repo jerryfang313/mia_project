@@ -28,6 +28,9 @@ for iter = 1:numBrains
 end
 
 [scale, tr, tc, tl, SSD] = register(newInputImage, origBrains{bestIter});
-
+minLeft = [];
+maxLeft = [];
+minRight = [];
+maxRight = [];
 end
 
