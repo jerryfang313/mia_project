@@ -1,4 +1,4 @@
-function [ leftbb, rightbb ] = bbFind( newInputImage )
+function [ leftbb, rightbb ] = bbFincd( newInputImage )
 load atlas 
 load brain1mat 
 load brain2mat 
@@ -16,14 +16,25 @@ newInputImage(newInputImage > cap) = cap;
 leftbb = zeros(size(newInputImage));
 rightbb = zeros(size(newInputImage));
 origBrains = {brain1; brain2; brain3; brain4; brain5; brain6};
+clear brain1 brain2 brain3 brain4 brain5 brain6
+
 bestSSD = realmax;
 bestIter = 0;
 
 for iter = 1:numBrains
-    [scale, tr, tc, tl, SSD] = register(newShrunk, shrunkBrains{iter});
+    scale = 1;
+    tr = 0;
+    tc = 0;
+    tl = 0;
+    
+    [scale, tr, tc, tl, SSD] = register(newShrunk, shrunkBrains{iter}, scale, tr, tc, tl);
     if (SSD < bestSSD)
         bestIter = iter;
         bestSSD = SSD;
+        bestscale = scale;
+        besttr = tr;
+        besttc = tc;
+        besttl = tl;
     end
 end
 

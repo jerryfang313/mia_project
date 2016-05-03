@@ -7,7 +7,7 @@
 % Where vector T is the [row col layer] coordinate of corresponding pixel
 % in otherImage.
 
-function  [scale, tr, tc, tl, SSD] = register(referenceImage, otherImage)
+function  [scale, tr, tc, tl, SSD] = register(referenceImage, otherImage, initscale, inittr, inittc, inittl)
 
 
 end
