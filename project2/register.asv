@@ -17,11 +17,12 @@ tl = inittl;
 initSSD = realmax;
 
 for iter = 1:10
-   blank = zeros(size(referenceImage)); 
+   Bt = zeros(size(referenceImage)); 
+   
    for i = 1:size(referenceImage,1)
        for j = 1:size(referenceImage,2)
            for k = 1:size(referenceImage, 3)
-               blank(i,j,k);
+               Bt(i,j,k);
            end
        end
    end
