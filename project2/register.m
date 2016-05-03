@@ -9,6 +9,9 @@
 
 function  [scale, tr, tc, tl, SSD] = register(referenceImage, otherImage, initscale, inittr, inittc, inittl)
 
+for iter = 1:10
+   blank = zeros(size(referenceImage)); 
+end
 
 end
 

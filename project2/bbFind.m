@@ -40,10 +40,10 @@ end
 
 [scale, tr, tc, tl, ~] = register(newInputImage, origBrains{bestIter}, bestscale, besttr, besttc, besttl);
 
-minLeft = [leftMinRCL(bestIter,:) - [tr tc tl]] / scale;
-maxLeft = [leftMaxRCL(bestIter,:) - [tr tc tl]] / scale;
-minRight = [rightMinRCL(bestIter,:) - [tr tc tl]] / scale;
-maxRight = [rightMaxRCL(bestIter,:) - [tr tc tl]] / scale;
+minLeft = round([leftMinRCL(bestIter,:) - [tr tc tl]] / scale);
+maxLeft = round([leftMaxRCL(bestIter,:) - [tr tc tl]] / scale);
+minRight = round([rightMinRCL(bestIter,:) - [tr tc tl]] / scale);
+maxRight = round([rightMaxRCL(bestIter,:) - [tr tc tl]] / scale);
 
 leftbb(minLeft(1):maxLeft(1), minLeft(2):maxLeft(2), minLeft(3):maxLeft(3)) = 1;
 rightbb(minRight(1):maxRight(1), minRight(2):maxRight(2), minRight(3):maxRight(3)) = 1;
