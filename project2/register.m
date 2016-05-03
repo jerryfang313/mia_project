@@ -13,11 +13,21 @@ scale = initscale;
 tr = inittr;
 tc = inittc;
 tl = inittl;
+N = numel(referenceImage);
+[maxr_other, maxc_other, maxl_other] = size(otherImage);
+[numr, numc, numl] = size(referenceImage);
 
-initSSD = realmax;
+prevC = 0;
+for i = 1:numr
+    for j = 1:numc
+        for k = 1:numl
+            prevC = prevC + (referenceImage(i,j,k) - getat(otherImage, scale * [i j k] + [tr tc tl], maxr_other, maxc_other, maxl_other))^2;
+        end
+    end
+end
+prevC = prevC / N;
 
 for iter = 1:10
-   Bt = zeros(size(referenceImage)); 
    dCds = 0;
    dCdr = 0;
    dCdc = 0;
