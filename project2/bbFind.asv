@@ -1,4 +1,4 @@
-function [ leftbb, rightbb ] = bbFind( newInputImage )
+function [ leftbb, rightbb ] = bbFincd( newInputImage )
 load atlas 
 load brain1mat 
 load brain2mat 
@@ -11,7 +11,7 @@ newInputImage(newInputImage < 0) = 0;
 vals = reshape(newInputImage, [], 1, 1);
 cap = prctile(vals, 99);
 newInputImage(newInputImage > cap) = cap;
-[newShrunk, ~, ~, ~] = shrinkImage(newInputImage, shrinkFactor);
+[newShrunk, newLostRows, newLostCols, newLostLays] = shrinkImage(newInputImage, shrinkFactor);
 
 leftbb = zeros(size(newInputImage));
 rightbb = zeros(size(newInputImage));
@@ -32,20 +32,16 @@ for iter = 1:numBrains
         bestIter = iter;
         bestSSD = SSD;
         bestscale = scale;
-        besttr = tr * shrinkFactor;
-        besttc = tc * shrinkFactor;
-        besttl = tl * shrinkFactor;
+        besttr = tr;
+        besttc = tc;
+        besttl = tl;
     end
 end
 
 [scale, tr, tc, tl, ~] = register(newInputImage, origBrains{bestIter}, bestscale, besttr, besttc, besttl);
-
-minLeft = [leftMinRCL(bestIter,:) - [tr tc tl]] / scale;
-maxLeft = [leftMaxRCL(bestIter,:) - [tr tc tl]] / scale;
-minRight = [rightMinRCL(bestIter,:) - [tr tc tl]] / scale;
-maxRight = [rightMaxRCL(bestIter,:) - [tr tc tl]] / scale;
-
-leftbb(minLeft(1):maxLeft(1), minLeft(2):maxLeft(2), minLeft(3):maxLeft(3)) = 1;
-rightbb(minRight(1):maxRight(1), minRight(2):maxRight(2), minRight(3):maxRight(3)) = 1;
+minLeft = [];
+maxLeft = [];
+minRight = [];
+maxRight = [];
 end
 
