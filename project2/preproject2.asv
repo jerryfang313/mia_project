@@ -21,6 +21,18 @@ brainNames = {'brain\1000901_MPRAGE.xml';
 
 numBrains = size(brainNames, 1);
 randBrain = floor(rand(1) * numBrains + 1);
+origBrains = cell(numBrains, 1);
+shrunkBrains = cell(numBrains, 1);
 for i = 1:numBrains
-    leftBox = ReadXml(leftBoxNames
+    leftBox = ReadXml(leftBoxNames{i});
+    leftMinCorner = find(leftBox, 1, 'first');
+    leftMaxCorner = find(leftBox, 1, 'last');
+    
+    rightBox = ReadXml(rightBoxNames{i});
+    rightMinCorner = find(rightBox, 1, 'first');
+    rightMaxCorner = find(rightBox, 1, 'last');
+    
+    
+    brain = ReadXml(brainNames{i});
+    b
 end
