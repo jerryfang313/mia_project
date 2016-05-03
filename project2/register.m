@@ -14,20 +14,21 @@ tr = inittr;
 tc = inittc;
 tl = inittl;
 N = numel(referenceImage);
-[maxr_other, maxc_other, maxl_other] = size(otherImage);
+[max_other] = size(otherImage);
 [numr, numc, numl] = size(referenceImage);
 
 prevC = 0;
 for i = 1:numr
     for j = 1:numc
         for k = 1:numl
-            prevC = prevC + (referenceImage(i,j,k) - getat(otherImage, scale * [i j k] + [tr tc tl], maxr_other, maxc_other, maxl_other))^2;
+            transformed = scale*[i j k] + [tr tc tl];
+            prevC = prevC + (referenceImage(i,j,k) - getat(otherImage, transformed, max_other))^2;
         end
     end
 end
 prevC = prevC / N;
 
-for iter = 1:10
+for iter = 1:5
    dCds = 0;
    dCdr = 0;
    dCdc = 0;
@@ -36,7 +37,10 @@ for iter = 1:10
    for i = 1:size(referenceImage,1)
        for j = 1:size(referenceImage,2)
            for k = 1:size(referenceImage,3)
-               dCds;
+               transformed = scale*[i j k] + [tr tc tl];
+               diff = referenceImage(i,j,k) - getat(otherImage, transformed, max_other);
+               grad = getgradat(otherImage, transformed, max_other);
+               dCds = ;
                dCdr;
                dCdc;
                dCdl;
@@ -44,6 +48,8 @@ for iter = 1:10
            end
        end
    end
+   
+   
 end
 
 end
