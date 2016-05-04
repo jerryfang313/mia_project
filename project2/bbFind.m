@@ -11,6 +11,7 @@ newInputImage(newInputImage < 0) = 0;
 vals = reshape(newInputImage, [], 1, 1);
 cap = prctile(vals, 99);
 newInputImage(newInputImage > cap) = cap;
+newInputImage = newInputImage * 255 / cap;
 [newShrunk, ~, ~, ~] = shrinkImage(newInputImage, shrinkFactor);
 
 leftbb = zeros(size(newInputImage));
@@ -27,18 +28,27 @@ for iter = 1:numBrains
     tc = 0;
     tl = 0;
     
+    disp(['registering shrunk brain ' num2str(iter)]);
     [scale, tr, tc, tl, SSD] = register(newShrunk, shrunkBrains{iter}, scale, tr, tc, tl);
+    disp(['SSD: ' num2str(SSD)]);
     if (SSD < bestSSD)
         bestIter = iter;
         bestSSD = SSD;
         bestscale = scale;
-        besttr = tr * shrinkFactor;
-        besttc = tc * shrinkFactor;
-        besttl = tl * shrinkFactor;
+        besttr = tr * 2;
+        besttc = tc * 2;
+        besttl = tl * 2;
     end
 end
 
-[scale, tr, tc, tl, ~] = register(newInputImage, origBrains{bestIter}, bestscale, besttr, besttc, besttl);
+disp(['Chose iteration ' num2str(bestIter)]);
+kindaShrunkInput = shrinkImage(newInputImage, 2);
+kindaShrunkOrig = shrinkImage(origBrains{bestIter}, 2);
+[scale, tr, tc, tl, ~] = register(kindaShrunkInput, kindaShrunkOrig, bestscale, besttr, besttc, besttl);
+
+tr = tr*2;
+tc = tc*2;
+tl = tl*2;
 
 minLeft = round([leftMinRCL(bestIter,:) - [tr tc tl]] / scale);
 maxLeft = round([leftMaxRCL(bestIter,:) - [tr tc tl]] / scale);
