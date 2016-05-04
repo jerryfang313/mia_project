@@ -3,7 +3,7 @@ rangeX = zeros(size(image,3),1);
 rangeY= zeros(size(image,3),1);
 
 %looping through each layer
-for i = 60:size(image,3)-30 %discard first 60 and last 30 layers
+for i = 60:size(image,3)-60 %discard first 60 and last 30 layers
     x = image(:,:,i); %extract 2D info from each layer
     %     y(y<0.00001) = 2;
     if max(max(x)) == 0 %skip if all elements of a layer are 0
@@ -26,13 +26,13 @@ xindex = find(rangeX==x); %layers
 xmed = floor(median(xindex)); % take the meadian of the layers
 
 % find the layer with largest brain width
-y = max(rangeY); % madnitude of width
-yindex = find(rangeY==y);
-ymed = floor(median(yindex));
-layer = [x y xmed ymed];
+% y = max(rangeY); % madnitude of width
+% yindex = find(rangeY==y);
+% ymed = floor(median(yindex));
+% layer = [x y xmed ymed];
 
 %set a range of layer around the center
-layer_min = ceil((ymed-25)/2)*2;
+layer_min = ceil((xmed-40)/2)*2;
 layer_max = ceil((xmed+40)/2)*2;
 
 % sample every other two layers
@@ -80,4 +80,5 @@ for m = 1:size(A,1)
     output(3,4*m) = A(m,9);
     
 end
+
 end
