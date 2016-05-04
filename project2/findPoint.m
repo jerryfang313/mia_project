@@ -1,3 +1,9 @@
+% Find and extracts points on the brain to be used for registration 
+% Takes four points (endpoints of minor and major axis) in each layer
+%
+% Input: matrix of the test image get from ReadXml
+% Output: 3xn matrix. Row is [x y z]' and column is individual points
+
 function [output] = findPoint(image)
 rangeX = zeros(size(image,3),1);
 rangeY= zeros(size(image,3),1);

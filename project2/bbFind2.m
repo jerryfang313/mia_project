@@ -1,3 +1,18 @@
+% main program. Locate and place left and right bounding boxes to the thalamus.
+
+% Input: matrix of test image. get from ReadXml
+% Output: leftbb - matrix of the left bb with size equal to test image
+%         rightbb - matrix of the right bb with size equal to test image
+%         box - 3x4 matrix. original bounding box location. get from matrix atlas 
+%         newBox - 3x4 matrix. new set of values generated from inverse
+%                  transformation
+%
+% The output of the box is formatted as 
+%[leftminR leftmaxR rightminR rightmaxR
+% leftminC leftmaxC rightminC rightmaxC
+% leftminL leftmaxL rightminL rightmaxL]
+
+
 function [leftbb,rightbb,box,newBox] = bbFind2(newInputImage)
 load brain1mat
 load brain2mat
@@ -64,9 +79,7 @@ newBox(:,3) = floor(newBox(:,3));
 newBox(:,4) = ceil(newBox(:,4));
 
 % Output bounding box
-%[leftminR leftmaxR rightminR rightmaxR
-% leftminC leftmaxC rightminC rightmaxC
-% leftminL leftmaxL rightminL rightmaxL]
+
 leftbb(newBox(1,1):newBox(1,2), newBox(2,1):newBox(2,2),newBox(3,1):newBox(3,2)) = 1;
 rightbb(newBox(1,3):newBox(1,4),newBox(2,3):newBox(2,4),newBox(3,3):newBox(3,4)) = 1;
 oldleftbb(box(1,1):box(1,2), box(2,1):box(2,2), box(3,1):box(3,2)) = 2;
