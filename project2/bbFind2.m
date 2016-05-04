@@ -14,6 +14,7 @@
 
 
 function [leftbb,rightbb,box,newBox] = bbFind2(newInputImage)
+tic
 load brain1mat
 load brain2mat
 load brain3mat
@@ -44,7 +45,7 @@ bestSSD = realmax; %set a arbitrary SSD value
 [out5] = findPoint(brain5);
 [out6] = findPoint(brain6);
 
-out = {out2;out3;out4;out5;out6};
+out = {out1;out2;out3;out4;out5;out6};
 
 %determine which training image produce the lowest SSD and therefore the
 %best registration
@@ -122,6 +123,6 @@ axis([min(box(2,3),newBox(2,3))-5 max(box(2,4),newBox(2,4))+5 min(box(1,3),newBo
 title('Right BB closeup');
 
 
-
+toc
 
 end
