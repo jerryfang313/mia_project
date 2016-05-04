@@ -8,7 +8,7 @@
 % in otherImage.
 
 function  [scale, tr, tc, tl, SSD] = register(referenceImage, otherImage, initscale, inittr, inittc, inittl)
-eta = 1e-20;
+eta = 1;
 scale = initscale;
 tr = inittr;
 tc = inittc;
@@ -30,10 +30,10 @@ prevC = prevC / N;
 
 disp(['prevC: ' num2str(prevC)]);
 skip = 0;
-for iter = 1:5
+for iter = 1:6
     if ~skip
         disp('not skip');
-        eta = 1e-20;
+        eta = 1;
         dCds = 0;
         dCdr = 0;
         dCdc = 0;
@@ -45,10 +45,11 @@ for iter = 1:5
             transformed = scale*[i j k] + [tr tc tl];
             diff = referenceImage(i,j,k) - getat(otherImage, transformed, max_other);
             grad = getgradat(otherImage, transformed, max_other);
-            dCds = dCds + -2/N*diff*grad' * [i j k]';
-            dCdr = dCdr + -2/N*diff*grad' * [1 0 0]';
-            dCdc = dCdc + -2/N*diff*grad' * [0 1 0]';
-            dCdl = dCdl + -2/N*diff*grad' * [0 0 1]';
+            dCds = dCds - 2/N*diff*grad' * [i j k]';
+            dCdr = dCdr - 2/N*diff*grad' * [1 0 0]';
+            dCdc = dCdc - 2/N*diff*grad' * [0 1 0]';
+            dCdl = dCdl - 2/N*diff*grad' * [0 0 1]';
+            if dCd
         end
         end
         end
@@ -56,7 +57,14 @@ for iter = 1:5
         disp('skip');
     end
    
-   disp([num2str(dCds) '  ' num2str(dCdr) '  ' num2str(dCdc) '  ' num2str(dCdl)]);
+    dCds = dCds/100;
+    dCdr = dCdr;
+    dCdc = dCdc;
+    dCdl = dCdl;
+    
+    disp(['s: ' num2str(scale) ' tr: ' num2str(tr) ' tc: ' num2str(tc) ' tl: ' num2str(tl)]);
+   disp(['dCds: ' num2str(dCds) '  ' ' dCdr: ' num2str(dCdr) '  ' ' dCdc: ' num2str(dCdc) '  ' ' dCdl: ' num2str(dCdl)]);
+   disp(['eta: ' num2str(eta)]);
    newScale = scale - eta*dCds;
    newr = tr - eta*dCdr;
    newc = tc - eta*dCdc;
@@ -74,7 +82,7 @@ for iter = 1:5
     tempC = tempC/N;
     disp(['tempC :' num2str(tempC)]);
     
-    if tempC < prevC
+    if tempC <= prevC
         prevC = tempC;
         tr = newr;
         tc = newc;
@@ -82,9 +90,11 @@ for iter = 1:5
         scale = newScale;
         skip = 0;
     else 
-        eta = eta/2;
+        eta = eta/10;
         skip = 1;
     end
+    
+    disp(' ');
 end
 
 SSD = prevC;
