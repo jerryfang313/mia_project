@@ -1,7 +1,7 @@
 % get path to truth file
-waitfor(msgbox(['Please select ', 'calc_info.txt', ':']));
+waitfor(msgbox(['Please select ', 'calc_info_update.txt', ':']));
 pause(0.25);
-[FILE, PATH] = uigetfile('*', 'calc_info.txt');
+[FILE, PATH] = uigetfile('*', 'calc_info_update.txt');
 calc_info_fullpath = [PATH FILE];
 disp(['Opened ' 'calc_info.txt'])
 
@@ -24,7 +24,7 @@ disp(['Opened ' 'calcification image directory'])
 %     axis equal;
 % end
 
-rnum = floor(rand(1) * max(size(images)) +1);
+rnum = floor(rand(1) * max(size(images)) +1)
 
 figure;
 colormap('gray');
@@ -81,12 +81,12 @@ for i = 1:size(calc_specs, 1)
     seed_row = calc_specs(i,3) + 1;
     seed_col = calc_specs(i,2) + 1;
     seed = [seed_row, seed_col];
-    threshold = 2;
+    threshold = 1;
     constrain = 0;
     param = '';
     thickness = 1;
   
-    [R_Mask, B_Mask] = MIA_Grow(im, seed, threshold, constrain, param, thickness);
+    [R_Mask, B_Mask] = MIA_Grow(im, seed, threshold);
     allRMasks{i} = R_Mask;
     allBMasks{i} = B_Mask;
 

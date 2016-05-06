@@ -1,4 +1,4 @@
-function [R_Mask, B_Mask, numToCheck, toCheck, equalSeeds] = MIA_CheckPoint(inImage, pt, numToCheck, toCheck, R_Mask, B_Mask, equalSeeds, seed, lower, upper)
+function [R_Mask, B_Mask, numToCheck, toCheck] = MIA_CheckPoint(inImage, pt, numToCheck, toCheck, R_Mask, B_Mask, lower, upper)
 
 pt_row = pt(1);
 pt_col = pt(2);
@@ -13,10 +13,11 @@ if ptInImage(pt_row, pt_col, size(inImage)) && ~R_Mask(pt_row, pt_col)
         %display('in range')
         R_Mask(pt_row, pt_col) = true;
         
+        %{
         if inImage(pt_row, pt_col) == seed
            equalSeeds = [equalSeeds; pt_row, pt_col]; 
         end
-        
+        %}
         for i = 1:3
             for j = 1:3               
                 if mask(i,j)

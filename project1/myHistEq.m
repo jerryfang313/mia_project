@@ -11,7 +11,7 @@
 function O = myHistEq(I, thresh)
     Imax = max(max(I));
     Imin = min(min(I));
-    disp(['Original had ' num2str(sum(sum(I == 0))) ' zeros']);
+    %disp(['Original had ' num2str(sum(sum(I == 0))) ' zeros']);
     aboveThresh = I(I >= Imin + thresh*(Imax-Imin));
     pdf = histc(aboveThresh, (0:256)'); 
     cdf = cumsum(pdf);
@@ -25,5 +25,5 @@ function O = myHistEq(I, thresh)
             end
         end
     end
-    disp(['Corrected has ' num2str(sum(sum(O == 0))) 'zeros']);
+    %disp(['Corrected has ' num2str(sum(sum(O == 0))) 'zeros']);
 end
