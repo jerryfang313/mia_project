@@ -1,7 +1,0 @@
-RCL
-
-function [ RCL ] = RCLofXYZOrigin( image_volume )
-    meanR;
-    mea
-end
-
