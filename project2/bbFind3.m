@@ -28,7 +28,7 @@ clear brain1 brain2 brain3 brain4 brain5 brain6
 
 bestMI = -realmax;
 bestBrain = 0;
-for iter = 2:numBrains
+for iter = 1:numBrains
     MI = mutual(newInputImage, origBrains{iter});
     disp(['MI: ' num2str(MI)]);
     if MI > bestMI
@@ -41,16 +41,16 @@ disp(['Chose iteration ' num2str(bestBrain)]);
 
 minLeft = leftMinRCL(bestBrain,:) - [1 1 1];
 disp(['minLeft: ' num2str(minLeft)]);
-disp(['trueMinLeft: ' num2str(leftMinRCL(1,:))]);
+% disp(['trueMinLeft: ' num2str(leftMinRCL(1,:))]);
 maxLeft = leftMaxRCL(bestBrain,:) + [1 1 1];
 disp(['maxLeft: ' num2str(maxLeft)]);
-disp(['trueMaxLeft: ' num2str(leftMaxRCL(1,:))]);
+% disp(['trueMaxLeft: ' num2str(leftMaxRCL(1,:))]);
 minRight = rightMinRCL(bestBrain,:) - [1 1 1];
 disp(['minRight: ' num2str(minRight)]);
-disp(['trueMinRight: ' num2str(rightMinRCL(1,:))]);
+% disp(['trueMinRight: ' num2str(rightMinRCL(1,:))]);
 maxRight = rightMaxRCL(bestBrain,:) + [1 1 1];
 disp(['maxRight: ' num2str(maxRight)]);
-disp(['trueMaxRight: ' num2str(rightMaxRCL(1,:))]);
+% disp(['trueMaxRight: ' num2str(rightMaxRCL(1,:))]);
 
 leftbb(minLeft(1):maxLeft(1), minLeft(2):maxLeft(2), minLeft(3):maxLeft(3)) = 1;
 rightbb(minRight(1):maxRight(1), minRight(2):maxRight(2), minRight(3):maxRight(3)) = 1;
