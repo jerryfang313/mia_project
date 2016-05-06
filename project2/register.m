@@ -30,7 +30,7 @@ prevC = prevC / N;
 
 disp(['prevC: ' num2str(prevC)]);
 skip = 0;
-for iter = 1:3
+for iter = 1:2
     if ~skip
         disp('not skip');
         eta = 1;
