@@ -23,7 +23,7 @@ clear brain1 brain2 brain3 brain4 brain5 brain6
 bestSSD = realmax;
 bestIter = 0;
 
-for iter = 1:numBrains-1
+for iter = 1:numBrains
     scale = 1;
     tr = 0;
     tc = 0;
