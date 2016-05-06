@@ -12,13 +12,12 @@ toCheck(1,:) = inPoint;
 numToCheck = 1;
 numChecked = 0;
 
-equalSeeds = [];
 while numChecked < numToCheck
     numChecked = numChecked + 1;
-    [R_Mask, B_Mask, numToCheck, toCheck, equalSeeds] = MIA_CheckPoint(inImage, toCheck(numChecked,:), numToCheck, toCheck, R_Mask, B_Mask, lower, upper, seed, equalSeeds);
+    [R_Mask, B_Mask, numToCheck, toCheck] = MIA_CheckPoint(inImage, toCheck(numChecked,:), numToCheck, toCheck, R_Mask, B_Mask, lower, upper);
 
 end
-toCheck(1:5,:);
+
 end
 
 

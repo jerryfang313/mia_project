@@ -82,10 +82,7 @@ for i = 1:size(calc_specs, 1)
     seed_col = calc_specs(i,2) + 1;
     seed = [seed_row, seed_col];
     threshold = 1;
-    constrain = 0;
-    param = '';
-    thickness = 1;
-  
+
     [R_Mask, B_Mask] = MIA_Grow(im, seed, threshold);
     allRMasks{i} = R_Mask;
     allBMasks{i} = B_Mask;

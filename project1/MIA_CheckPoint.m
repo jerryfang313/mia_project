@@ -3,9 +3,9 @@ function [R_Mask, B_Mask, numToCheck, toCheck] = MIA_CheckPoint(inImage, pt, num
 pt_row = pt(1);
 pt_col = pt(2);
 
-mask = [0, true, 0;
+mask = [true, true, true;
         true, 0, true;
-        0, true, 0];
+        true, true, true];
 
 if ptInImage(pt_row, pt_col, size(inImage)) && ~R_Mask(pt_row, pt_col)
 
@@ -18,6 +18,7 @@ if ptInImage(pt_row, pt_col, size(inImage)) && ~R_Mask(pt_row, pt_col)
            equalSeeds = [equalSeeds; pt_row, pt_col]; 
         end
         %}
+        
         for i = 1:3
             for j = 1:3               
                 if mask(i,j)
