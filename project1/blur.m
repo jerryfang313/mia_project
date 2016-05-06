@@ -5,4 +5,6 @@ function [outImage] = blur(inImage)
 
   mask = repmat(1/9, 3, 3);
   outImage = conv2(inImage,mask,'same');
+  outImage = round(outImage);
+  
 end

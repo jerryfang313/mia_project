@@ -65,7 +65,7 @@ axis equal;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-numFeatures = 14;
+numFeatures = 17;
 featVectors = NaN(numFeatures, size(calc_specs,1));
 
 circledImages = cell(max(size(calc_specs)), 1);

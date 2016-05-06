@@ -1,5 +1,5 @@
 Filename x y radius 
-mdb213 477 505 87 
+mdb213 477 505 45 
 mdb223 502 543 29 
 mdb223 434 496 6 
 mdb231 421 487 44 

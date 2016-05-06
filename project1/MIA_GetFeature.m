@@ -6,7 +6,7 @@
 % Out:  outVector: a Vx1 vector describing V features of the region/boundary
 
 function [outVector] = MIA_GetFeature(inImage, R_Mask, B_Mask)
-    numFeatures = 14;
+    numFeatures = 17;
     outVector = zeros(numFeatures, 1);
     
     index = 1;
@@ -103,4 +103,27 @@ function [outVector] = MIA_GetFeature(inImage, R_Mask, B_Mask)
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
+    % Compactness
+    compactness = 1 - 4 * pi * region_area / sum(sum(B_Mask));
+    outVector(index) = compactness;
+    index = index + 1;
+    
+    % Centroid
+    sumX = 0;
+    sumY = 0;
+    for i = 1:size(inImage,1)
+        for j =1:size(inImage,2)
+            if R_Mask(i,j)
+                sumX = sumX + i;
+                sumY = sumY + j;
+            end
+        end
+    end
+    centroidX = sumX / double(region_area);
+    centroidY = sumY / double(region_area);
+    outVector(index) = centroidX;
+    index = index + 1;
+    outVector(index) = centroidY;
+    index = index + 1;
+    
 end

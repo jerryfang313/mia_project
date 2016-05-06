@@ -21,6 +21,10 @@ pt_y = pt(2);
 
 R_Mask(pt_x, pt_y) = true;
 
+maskToCheck = [0, 1, 0;
+               1, 0, 1;
+               0, 1, 0];
+
 % Loop through rows
 for i = 1:3
     
@@ -37,9 +41,7 @@ for i = 1:3
             % Compare intensity to bounds
             if (lowerBound <= inImage(newPt_x, newPt_y)) && (inImage(newPt_x, newPt_y) <= upperBound)
                 
-                % Do not recall function on self
-                % TODO: there may be way to avoid this conditional
-                if (i ~= 2 || j~= 2)
+                if maskToCheck(i,j)
                     [R_Mask, B_Mask] = MIA_GrowPoint(inImage, [newPt_x, newPt_y], R_Mask, B_Mask, lowerBound, upperBound);
                 end
             else
